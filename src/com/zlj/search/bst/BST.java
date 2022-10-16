@@ -2,8 +2,7 @@ package com.zlj.search.bst;
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root;
@@ -18,6 +17,35 @@ public class BST<Key extends Comparable<Key>, Value> {
             this.key = key;
             this.value = value;
             N = n;
+        }
+        @Override
+        public String toString() {
+            StringBuffer buffer = new StringBuffer();
+            print(buffer, "", "");
+            return buffer.toString();
+        }
+
+        private void print(StringBuffer buffer, String prefix, String childrenPrefix){
+            buffer.append(prefix);
+            buffer.append(key);
+            buffer.append("\n");
+
+            List<Node> children = new LinkedList<>();
+            if (left != null){
+                children.add(left);
+            }
+            if (right != null){
+                children.add(right);
+            }
+
+            for (Iterator<Node> it = children.iterator(); it.hasNext();){
+                Node next = it.next();
+                if (it.hasNext()){
+                    next.print(buffer, childrenPrefix + "├── ", childrenPrefix + "|  ");
+                } else {
+                    next.print(buffer, childrenPrefix + "└── ", childrenPrefix + "    ");
+                }
+            }
         }
     }
 
@@ -252,4 +280,12 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
     }
 
+    @Override
+    public String toString() {
+        if (root == null){
+            return "Empty tree";
+        } else{
+            return root.toString();
+        }
+    }
 }
