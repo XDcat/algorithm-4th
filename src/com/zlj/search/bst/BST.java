@@ -125,5 +125,46 @@ public class BST<Key extends Comparable<Key>, Value>{
         }
     }
 
+    public Key select(int n){
+       Node res = select(root, n);
+       if (res == null){
+           return null;
+       } else {
+           return res.key;
+       }
 
+    }
+
+    private Node select(Node root, int n) {
+        if (root == null){
+            return null;
+        }
+        int cmp = size(root) - n;
+        if (cmp == 0){
+            return root;
+        } else if(cmp > 0) {
+            return select(root.left, n);
+        } else {
+            return select(root.right, size(root) - n - 1);
+        }
+    }
+
+    public int rank(Key key){
+        return rank(root, key);
+    }
+
+    private int rank(Node root, Key key) {
+        if (root == null){
+            return 0;
+        }
+
+        int cmp = root.key.compareTo(key);
+        if (cmp == 0){
+            return size(root.left);
+        } else if (cmp < 0){
+            return 1 + size(root.left) + rank(root.right, key);
+        } else {
+            return rank(root.left, key);
+        }
+    }
 }
