@@ -1,5 +1,6 @@
 package com.zlj.search.bst;
 
+import com.zlj.ds.TreePrinter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +23,8 @@ public class BSTTest {
     @Test
     public void print(){
         System.out.println(tree);
+
+        TreePrinter.print(tree.getRoot());
     }
     @Test
     public void size() {

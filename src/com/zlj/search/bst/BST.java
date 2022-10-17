@@ -1,13 +1,18 @@
 package com.zlj.search.bst;
 
+import com.zlj.ds.TreePrinter;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.*;
 
 public class BST<Key extends Comparable<Key>, Value> {
+    public Node getRoot() {
+        return root;
+    }
+
     private Node root;
 
-    private class Node {
+    private class Node implements TreePrinter.PrintableNode {
         private Key key;
         private Value value;
         private int N;
@@ -46,6 +51,21 @@ public class BST<Key extends Comparable<Key>, Value> {
                     next.print(buffer, childrenPrefix + "└── ", childrenPrefix + "    ");
                 }
             }
+        }
+
+        @Override
+        public TreePrinter.PrintableNode getLeft() {
+            return left;
+        }
+
+        @Override
+        public TreePrinter.PrintableNode getRight() {
+            return right;
+        }
+
+        @Override
+        public String getText() {
+            return "" + key + ":" + value;
         }
     }
 
